@@ -7,3 +7,11 @@ env.local
 .env.local
 .env*
 !.env.example
+
+# Local secret files (never commit)
+.env.*
+!.env.example
+env.local
+*.local
+node_modules/
+.next/
