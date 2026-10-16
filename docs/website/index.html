@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ভূমিপত্র — ডিজিটাল ভূমি রেকর্ড, যাচাই ও ই-মিউটেশন</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f7f4;--surface:#ffffff;--ink:#10261d;--muted:#4f6258;--green:#006a4e;--red:#c91f37;--line:#d3ddd6;--bad:#b3261e;--ok:#1f7a4d;--hero:#006a4e;--heroink:#ffffff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101a15;--surface:#16231c;--ink:#ece8d8;--muted:#a3b0a6;--green:#4fc79b;--red:#ff6b7d;--line:#2a3c32;--bad:#ff8a80;--ok:#6fd69f;--hero:#00382a;--heroink:#ffffff}}
+:root[data-theme="dark"]{--bg:#101a15;--surface:#16231c;--ink:#ece8d8;--muted:#a3b0a6;--green:#4fc79b;--red:#ff6b7d;--line:#2a3c32;--bad:#ff8a80;--ok:#6fd69f;--hero:#00382a;--heroink:#ffffff}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.75 "Noto Sans Bengali","Hind Siliguri",Kalpurush,SolaimanLipi,system-ui,sans-serif}
+h1,h2,h3{font-family:"Noto Sans Bengali","Hind Siliguri",Kalpurush,SolaimanLipi,system-ui,sans-serif;font-weight:700;line-height:1.4;margin:0}
+a{color:inherit}.w{max-width:1040px;margin:0 auto;padding:0 20px}
+nav{border-top:4px solid var(--red);position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .w{display:flex;gap:18px;align-items:center;overflow-x:auto;white-space:nowrap;padding-top:10px;padding-bottom:10px}
+nav b{font-weight:700;color:var(--green);margin-right:auto;font-size:19px}
+nav a{text-decoration:none;color:var(--muted);font-size:15px}nav a:hover{color:var(--ink)}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.hero{background:var(--hero);color:var(--heroink);padding:64px 0 72px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-70px;top:-70px;width:230px;height:230px;border-radius:50%;background:#f42a41;opacity:.92}
+.hero .w{position:relative;z-index:1}
+.hero :focus-visible{outline-color:#fff}
+.hero .w{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(32px,5vw,52px);font-weight:800}
+.hero p{color:color-mix(in srgb,var(--heroink) 80%,transparent);max-width:34em}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.btn{display:inline-block;padding:11px 22px;border-radius:6px;text-decoration:none;font-weight:600;border:2px solid #fff}
+.btn.p{background:#fff;color:#006a4e}.btn.s{color:var(--heroink)}
+.rec{background:#ffffff;color:#10261d;border-radius:4px;padding:22px;border:1px solid #bcd0c4;box-shadow:6px 6px 0 rgba(244,42,65,.8);position:relative;font-size:15px;line-height:1.6}
+.rec h3{font-size:18px;border-bottom:2px double #7fb59f;padding-bottom:8px;margin-bottom:10px}
+.rec dl{display:grid;grid-template-columns:auto 1fr;gap:2px 14px;margin:0}.rec dt{color:#4d6358}.rec dd{margin:0;font-weight:600}
+.stamp{position:absolute;right:16px;bottom:16px;border:3px solid #1f7a4d;color:#1f7a4d;border-radius:50%;width:84px;height:84px;display:grid;place-items:center;text-align:center;font:600 13px/1.2 "Hind Siliguri",sans-serif;transform:rotate(-12deg)}
+section{padding:64px 0}section h2{font-size:clamp(26px,3.6vw,36px);margin-bottom:10px}
+.lead{color:var(--muted);max-width:40em;margin:0 0 30px}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.mod{border-top:4px solid var(--green);background:var(--surface);padding:20px 22px;border-radius:2px 2px 10px 10px}
+.mod:nth-child(2n){border-top-color:var(--red)}.mod h3{font-size:20px;margin-bottom:8px}
+.mod ul{margin:0;padding-left:20px;color:var(--muted)}
+.alt{background:var(--surface);border-block:1px solid var(--line)}
+.chain{display:flex;gap:0;align-items:stretch;overflow-x:auto;padding-bottom:10px}
+.blk{flex:0 0 210px;border:2px solid var(--green);border-radius:8px;background:var(--bg);padding:12px;font-size:14px;line-height:1.5}
+.blk.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,var(--bg))}
+.link{flex:0 0 28px;align-self:center;height:3px;background:var(--green)}.link.bad{background:var(--bad)}
+.blk code{display:block;font:12px/1.4 ui-monospace,Menlo,monospace;word-break:break-all;color:var(--muted)}
+.blk input{width:100%;font:inherit;padding:4px 6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:4px}
+.st{font-weight:600;margin-top:6px}.ok{color:var(--ok)}.no{color:var(--bad)}
+.steps{list-style:none;margin:0;padding:0;border-left:3px solid var(--green)}
+.steps li{padding:2px 0 22px 26px;position:relative}.steps li::before{content:"";position:absolute;left:-10px;top:8px;width:17px;height:17px;border-radius:50%;background:var(--red);border:3px solid var(--bg)}
+.steps b{display:block}
+.roles{width:100%;border-collapse:collapse}.roles th,.roles td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}.roles th{width:30%;color:var(--green)}
+.tags{display:flex;flex-wrap:wrap;gap:10px;padding:0;list-style:none;margin:0}
+.tags li{border:1px solid var(--line);background:var(--surface);padding:6px 14px;border-radius:99px;font-size:15px}
+footer{border-top:6px solid #f42a41;background:var(--hero);color:var(--heroink);padding:40px 0;font-size:15px}
+footer p{margin:2px 0;color:color-mix(in srgb,var(--heroink) 78%,transparent)}
+@media(max-width:760px){.hero .w{grid-template-columns:1fr}.hero{padding:40px 0 48px}section{padding:44px 0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav><div class="w"><b>ভূমিপত্র</b><a href="#features">ফিচার</a><a href="#chain">হ্যাশ চেইন</a><a href="#mutation">নামজারি</a><a href="#users">ব্যবহারকারী</a><a href="#security">নিরাপত্তা</a></div></nav>
+
+<header class="hero"><div class="w">
+<div>
+<h1>জমির রেকর্ড হোক ডিজিটাল, যাচাইযোগ্য ও জালিয়াতি-প্রতিরোধী</h1>
+<p>খতিয়ান সংরক্ষণ, QR কোডে সত্যতা যাচাই এবং অনলাইনে নামজারি, সবকিছু এক প্ল্যাটফর্মে। প্রতিটি পরিবর্তন লেখা থাকে, কোনো রেকর্ড চুপিসারে বদলানো যায় না।</p>
+<div class="btns"><a class="btn p" href="#chain">হ্যাশ চেইন নিজে পরীক্ষা করুন</a><a class="btn s" href="#features">ফিচার দেখুন</a></div>
+</div>
+<div class="rec" aria-label="নমুনা খতিয়ান কার্ড">
+<h3>খতিয়ান নম্বর ১২৪৫ (নমুনা)</h3>
+<dl><dt>দাগ নম্বর</dt><dd>৮৮৩</dd><dt>মৌজা</dt><dd>নমুনা মৌজা</dd><dt>উপজেলা / জেলা</dt><dd>নমুনা উপজেলা / নমুনা জেলা</dd><dt>জমির ধরন</dt><dd>আবাদি, ৩৩ শতাংশ</dd><dt>বর্তমান মালিক</dt><dd>কাল্পনিক নাম</dd></dl>
+<div class="stamp" style="position:relative;right:auto;bottom:auto;margin:14px 0 0 auto">যাচাই<br>সম্পন্ন</div>
+</div>
+</div></header>
+
+<section id="features"><div class="w">
+<h2>অ্যাপে যা যা থাকছে</h2>
+<p class="lead">পাঁচটি মূল মডিউল, যা জমির তথ্য রাখা থেকে শুরু করে পরিবর্তনের প্রতিটি ধাপ নথিভুক্ত করে।</p>
+<div class="grid">
+<div class="mod"><h3>ডিজিটাল ভূমি রেকর্ড</h3><ul><li>খতিয়ান, দাগ, মৌজা, উপজেলা, জেলা ও জমির পরিমাণ</li><li>মালিকের নাম, NID, ঠিকানা</li><li>মালিকানার ইতিহাস</li><li>দলিল ও খতিয়ানের স্ক্যান কপি</li></ul></div>
+<div class="mod"><h3>যাচাইকরণ</h3><ul><li>দাগ বা খতিয়ান নম্বরে জমি খোঁজা</li><li>প্রতিটি রেকর্ডে QR কোড</li><li>এক ক্লিকে সত্যতা যাচাই</li></ul></div>
+<div class="mod"><h3>ই-মিউটেশন (নামজারি)</h3><ul><li>অনলাইনে আবেদন</li><li>ধাপে ধাপে ট্র্যাকিং</li><li>প্রতিটি ধাপে SMS বা ইমেইল নোটিফিকেশন</li></ul></div>
+<div class="mod"><h3>জালিয়াতি প্রতিরোধ</h3><ul><li>প্রতিটি রেকর্ডের SHA-256 হ্যাশ ও hash chain</li><li>ডিজিটাল সিগনেচার, অনুমোদন ছাড়া পরিবর্তন নয়</li><li>একই জমি দুইবার বিক্রির চেষ্টায় স্বয়ংক্রিয় সতর্কতা</li></ul></div>
+<div class="mod"><h3>অডিট লগ</h3><ul><li>কে, কখন, কী বদলাল তার পূর্ণ তালিকা</li><li>লগ মুছে ফেলা বা বদলানো যায় না</li></ul></div>
+<div class="mod"><h3>অতিরিক্ত সুবিধা</h3><ul><li>বাংলা ও ইংরেজি ইন্টারফেস</li><li>মোবাইল-ফ্রেন্ডলি ডিজাইন</li><li>মানচিত্রে জমির অবস্থান</li><li>পুরোনো দলিল ডিজিটাইজ করতে বাংলা OCR (পরিকল্পিত)</li></ul></div>
+</div></div></section>
+
+<section id="chain" class="alt"><div class="w">
+<h2>হ্যাশ চেইন: বদলালেই ধরা পড়ে</h2>
+<p class="lead">নিচে মালিকানার একটি নমুনা ইতিহাস। দ্বিতীয় ব্লকের মালিকের নাম বদলে দেখুন, ওই ব্লক ও তার পরের সব ব্লক সঙ্গে সঙ্গে অবৈধ দেখাবে।</p>
+<div class="chain" id="chainBox" aria-live="polite"></div>
+<p class="lead" style="margin:14px 0 0">প্রতিটি ব্লকের হ্যাশ তৈরি হয় আগের ব্লকের হ্যাশ ও নিজের তথ্য মিলিয়ে (SHA-256)। এটি একটি ডেমো, তথ্য সম্পূর্ণ কাল্পনিক।</p>
+</div></section>
+
+<section id="mutation"><div class="w">
+<h2>নামজারি যেভাবে চলবে</h2>
+<p class="lead">প্রস্তাবিত কর্মপ্রবাহ। বাস্তবে ধাপ বা দায়িত্বপ্রাপ্ত কর্মকর্তা ভিন্ন হলে বিশেষজ্ঞের মতামত অনুযায়ী সংশোধন করা হবে।</p>
+<ol class="steps">
+<li><b>আবেদন</b>আবেদনকারী অনলাইনে ফর্ম পূরণ করে কাগজপত্র আপলোড করেন।</li>
+<li><b>যাচাই</b>সার্ভেয়ার তথ্য ও কাগজপত্র যাচাই করে প্রতিবেদন দেন।</li>
+<li><b>অনুমোদন</b>সহকারী কমিশনার (ভূমি) পর্যালোচনা করে অনুমোদন বা বাতিল করেন।</li>
+<li><b>হালনাগাদ</b>রেকর্ড হালনাগাদ হয় এবং নতুন হ্যাশ তৈরি হয়।</li>
+<li><b>নোটিফিকেশন ও লগ</b>প্রতিটি ধাপে আবেদনকারী বার্তা পান, অডিট লগে সব সংরক্ষিত থাকে।</li>
+</ol></div></section>
+
+<section id="users" class="alt"><div class="w">
+<h2>কে কী করতে পারবে</h2><p class="lead">রোল অনুযায়ী আলাদা ড্যাশবোর্ড ও প্রবেশাধিকার।</p>
+<table class="roles"><tbody>
+<tr><th>নাগরিক</th><td>জমি দেখা, নামজারির আবেদন করা, আবেদনের অবস্থা ট্র্যাক করা</td></tr>
+<tr><th>ভূমি কর্মকর্তা / সার্ভেয়ার</th><td>আবেদন যাচাই ও অনুমোদন</td></tr>
+<tr><th>আইনজীবী / ক্রেতা</th><td>শুধু রেকর্ড যাচাই করা</td></tr>
+<tr><th>অ্যাডমিন</th><td>ব্যবহারকারী ও সিস্টেম ব্যবস্থাপনা</td></tr>
+</tbody></table></div></section>
+
+<section id="security"><div class="w">
+<h2>নিরাপত্তা ও প্রধান স্ক্রিন</h2>
+<div class="grid" style="margin-top:20px">
+<div class="mod"><h3>নিরাপত্তা ব্যবস্থা</h3><ul><li>পাসওয়ার্ড হ্যাশিং ও JWT-ভিত্তিক লগইন</li><li>রোল-ভিত্তিক প্রবেশাধিকার</li><li>ইনপুট ভ্যালিডেশন ও ডেটা এনক্রিপশন</li><li>append-only অডিট লগ ও হ্যাশ চেইন</li></ul></div>
+<div class="mod"><h3>প্রধান স্ক্রিন</h3><ul><li>হোম, লগইন ও রেজিস্ট্রেশন</li><li>রোল অনুযায়ী ড্যাশবোর্ড</li><li>জমি সার্চ ও যাচাই</li><li>নামজারি আবেদন ও ট্র্যাকিং</li><li>মালিকানার ইতিহাস ও হ্যাশ চেইন</li><li>অডিট লগ, সহায়তা ও FAQ</li></ul></div>
+</div>
+<h3 style="margin:34px 0 12px;font-size:20px">প্রস্তাবিত প্রযুক্তি</h3>
+<ul class="tags"><li>React / Next.js</li><li>Node.js অথবা Django</li><li>PostgreSQL</li></ul>
+</div></section>
+
+<footer><div class="w">
+<p><b>LandTech Innovation Hackathon 2026</b> · Track: Land Tech Software</p>
+<p>ডাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটি</p>
+<p>প্রস্তুতকারী: মো. ইমরান আলী লিমন, CSE বিভাগ</p>
+</div></footer>
+
+<script>
+(function(){
+const data=[{o:"কাল্পনিক ক্রেতা ক",d:"২০০৫"},{o:"কাল্পনিক ক্রেতা খ",d:"২০১২"},{o:"কাল্পনিক ক্রেতা গ",d:"২০১৯"},{o:"কাল্পনিক ক্রেতা ঘ",d:"২০২৪"}];
+const orig=data.map(x=>x.o);const stored=[];const box=document.getElementById("chainBox");
+async function h(s){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,"0")).join("")}
+async function calc(owners){let prev="0",out=[];for(let i=0;i<owners.length;i++){prev=await h(prev+"|"+owners[i]+"|"+data[i].d);out.push(prev)}return out}
+function draw(now){box.innerHTML="";let broken=false;
+data.forEach((x,i)=>{if(now[i]!==stored[i])broken=true;
+if(i){const l=document.createElement("div");l.className="link"+(broken?" bad":"");box.appendChild(l)}
+const b=document.createElement("div");b.className="blk"+(broken?" bad":"");
+const inp=i===1?'<input id="edit" aria-label="দ্বিতীয় ব্লকের মালিকের নাম" value="'+data[i].o+'">':'<div>'+x.o+'</div>';
+b.innerHTML='<div>ব্লক '+(i+1)+' · '+x.d+'</div>'+inp+'<code>'+now[i].slice(0,24)+'…</code><div class="st '+(broken?'no':'ok')+'">'+(broken?'অবৈধ':'বৈধ')+'</div>';
+box.appendChild(b)});
+const e=document.getElementById("edit");if(e){e.addEventListener("input",upd)}}
+let busy=false;async function upd(ev){const v=ev.target.value;const owners=orig.slice();owners[1]=v;const now=await calc(owners);const pos=ev.target.selectionStart;data[1].o=v;draw(now);const e=document.getElementById("edit");e.focus();e.setSelectionRange(pos,pos)}
+(async()=>{try{const s=await calc(orig);s.forEach(x=>stored.push(x));draw(s)}catch(err){box.textContent="এই ডেমো চালাতে নিরাপদ (HTTPS) ব্রাউজার প্রয়োজন।"}})();
+})();
+</script>
+</body>
+</html>

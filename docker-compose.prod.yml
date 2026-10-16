@@ -1,0 +1,61 @@
+# Whole system: nginx -> Next.js -> Django -> PostgreSQL.
+# Only nginx publishes a port. Start:  docker compose -f docker-compose.prod.yml up -d --build
+# (podman users: podman-compose -f docker-compose.prod.yml up -d --build)
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  backend:
+    build: .
+    env_file: .env
+    environment:
+      DJANGO_DEBUG: "false"
+      DJANGO_SSL_REDIRECT: "false"          # TLS ends at nginx; Django is internal only
+      DJANGO_ALLOWED_HOSTS: "backend,localhost,127.0.0.1"
+      TRUSTED_PROXY_COUNT: "1"
+      DB_HOST: db
+      DB_PORT: "5432"
+      FRONTEND_BASE_URL: ${PUBLIC_URL:-http://localhost:8080}
+      PRIVATE_MEDIA_ROOT: /data/media
+    volumes:
+      - media:/data/media
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    environment:
+      BACKEND_URL: http://backend:8000
+      TRUST_FRONT_PROXY: "true"
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}   # use false only to try it over plain http://localhost
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:1.27-alpine
+    ports:
+      - "${HTTP_PORT:-8080}:80"
+    volumes:
+      - ./deploy/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
+    depends_on:
+      - frontend
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  media:

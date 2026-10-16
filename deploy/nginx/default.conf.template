@@ -1,0 +1,21 @@
+# The only public entrance. Django and the database are NOT reachable from outside.
+# For real use add TLS here (listen 443 ssl; ssl_certificate ...) and redirect 80 -> 443.
+limit_req_zone $binary_remote_addr zone=perip:10m rate=20r/s;
+
+server {
+    listen 80;
+    server_name _;
+    server_tokens off;
+    client_max_body_size 6m;      # 5 MB file + form overhead
+    client_body_timeout 15s;
+
+    location / {
+        limit_req zone=perip burst=40 nodelay;
+        proxy_pass http://frontend:3000;
+        proxy_set_header Host $host;
+        # nginx is the edge: overwrite (never append to) what the client sent
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 30s;
+    }
+}
